@@ -1,0 +1,4 @@
+# .dockerignore
+
+# Izslēdz visus failus un mapes ar nosaukumu .env
+.env

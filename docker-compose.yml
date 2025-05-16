@@ -1,0 +1,190 @@
+# Definējam nosauktos sējumus datu saglabāšanai (no jūsu vecās konfig.)
+volumes:
+  shared-workspace:
+    name: lokala_datu_kratuve
+    driver: local
+  hadoop_namenode:
+    driver: local
+  hadoop_datanode:
+    driver: local
+
+# Definē tīklu, lai visi servisi varētu sazināties pēc nosaukuma
+networks:
+  hadoop_network:
+    driver: bridge
+
+# Definē visus servisus
+services:
+  # Hadoop NameNode serviss
+  namenode:
+    image: 'bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8'
+    container_name: namenode
+    ports:
+      - '9870:9870'
+      - '9000:9000'
+    volumes:
+      - 'hadoop_namenode:/hadoop/dfs/name'
+      - 'shared-workspace:/opt/workspace'
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+      - 'CORE_CONF_fs_defaultFS=hdfs://namenode:9000'
+      - HDFS_CONF_dfs_replication=1
+    env_file:
+      - .env
+    networks:
+      - hadoop_network
+
+  # Hadoop DataNode serviss (no jūsu vecās konfig.)
+  datanode:
+    image: 'bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8'
+    container_name: datanode
+    volumes:
+      - 'hadoop_datanode:/hadoop/dfs/data'
+      - 'shared-workspace:/opt/workspace'
+    environment:
+      - 'CORE_CONF_fs_defaultFS=hdfs://namenode:9000'
+      - 'SERVICE_PRECONDITION=namenode:9000'
+    env_file:
+      - .env
+    depends_on:
+      - namenode
+    networks:
+      - hadoop_network
+
+  # Spark Master serviss (Bitnami balstīts)
+  spark-master:
+    image: bitnami/spark:3.4.2
+    container_name: spark-master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+      # - "4042:4042" # Papildu ports, ja nepieciešams
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_PORT=7077
+      - SPARK_MASTER_WEBUI_PORT=8080
+      - 'FS_DEFAULT_FS=hdfs://namenode:9000'
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_RPC_SSL_ENABLED=no
+    volumes:
+      - 'shared-workspace:/opt/workspace'
+      - ./core-site.xml:/opt/spark/conf/core-site.xml
+    env_file:
+      - .env
+    depends_on:
+      - namenode
+    networks:
+      - hadoop_network
+
+  # Spark Worker 1 (Bitnami balstīts)
+  spark-worker-1:
+    image: bitnami/spark:3.4.2
+    container_name: spark-worker-1
+    ports:
+      - "8081:8081"
+    environment:
+      - SPARK_MODE=worker
+      - 'SPARK_MASTER_URL=spark://spark-master:7077'
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - 'FS_DEFAULT_FS=hdfs://namenode:9000'
+      # Saskaņots ar Master RPC iestatījumiem
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_RPC_SSL_ENABLED=no
+    volumes:
+      - 'shared-workspace:/opt/workspace'
+      - ./core-site.xml:/opt/spark/conf/core-site.xml
+    env_file:
+      - .env
+    depends_on:
+      - spark-master
+      - namenode
+    networks:
+      - hadoop_network
+
+  # Spark Worker 2 (Bitnami balstīts)
+  spark-worker-2:
+    image: bitnami/spark:3.4.2
+    container_name: spark-worker-2
+    ports:
+      - "8082:8082"
+    environment:
+      - SPARK_MODE=worker
+      - 'SPARK_MASTER_URL=spark://spark-master:7077'
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - 'FS_DEFAULT_FS=hdfs://namenode:9000'
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_RPC_SSL_ENABLED=no
+    volumes:
+      - 'shared-workspace:/opt/workspace'
+      - ./core-site.xml:/opt/spark/conf/core-site.xml
+    env_file:
+      - .env
+    depends_on:
+      - spark-master
+      - namenode
+    networks:
+      - hadoop_network
+
+  # Spark Worker 3 (Bitnami balstīts)
+  spark-worker-3:
+    image: bitnami/spark:3.4.2
+    container_name: spark-worker-3
+    ports:
+      - "8083:8083"
+    environment:
+      - SPARK_MODE=worker
+      - 'SPARK_MASTER_URL=spark://spark-master:7077'
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - 'FS_DEFAULT_FS=hdfs://namenode:9000'
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_RPC_SSL_ENABLED=no
+    volumes:
+      - 'shared-workspace:/opt/workspace'
+      - ./core-site.xml:/opt/spark/conf/core-site.xml
+    env_file:
+      - .env
+    depends_on:
+      - spark-master
+      - namenode
+    networks:
+      - hadoop_network
+
+  # JupyterLab serviss ar datu apstrādes bibliotēkām
+  jupyterlab:
+    build:
+      context: .
+      dockerfile: jupyter_magistrs2025.Dockerfile
+    container_name: jupyterlab 
+    user: root
+    ports:
+      - '8888:8888'
+    environment:
+      - TZ=Europe/Riga
+      - 'SPARK_MASTER_URL=spark://spark-master:7077'
+      - 'FS_DEFAULT_FS=hdfs://namenode:9000'
+      # Iespējams, noderīgi vides mainīgie, atkarībā no jūsu Dockerfile bāzes attēla:
+      # - NB_UID=1000 # Jupyter noklusējuma lietotāja UID (pielāgojiet, ja izmantojat citu lietotāju/UID)
+      # - NB_GID=100 # Jupyter noklusējuma lietotāja GID
+    volumes:
+      # Piesaista lokālās mapes darbam un datiem
+      - 'shared-workspace:/opt/workspace'
+      - './synthea_izejas_dati:/opt/workspace/synthea_izejas_dati'
+      - './synthea_kludainie_dati:/opt/workspace/synthea_kludainie_dati'
+      # Ja vēlaties piesaistīt visu pašreizējo mapi darbam, varat pievienot šo (vai nomainīt augšējās):
+      # - '.:/opt/workspace' # Piesaista mapi, kur ir docker-compose.yaml
+      - ./core-site.xml:/opt/spark/conf/core-site.xml
+    working_dir: /opt/workspace # Noklusējuma darba mape
+    env_file:
+      - .env
+    depends_on:
+      - spark-master
+      - namenode
+    networks:
+      - hadoop_network
