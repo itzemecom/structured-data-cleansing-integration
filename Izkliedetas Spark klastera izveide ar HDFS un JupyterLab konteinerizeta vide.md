@@ -38,19 +38,18 @@
 | Workers | 16+ kodoli | 32+ GB | 4+ TB | Ubuntu 22.04 |
 
 ### Programmatūras prasības
-```
+
 # Visiem mezgliem
-sudo apt update
+```sudo apt update
 sudo apt install -y docker.io docker-compose
 sudo systemctl enable docker
-sudo usermod -aG docker $USER```
-
+sudo usermod -aG docker $USER
+```
 ## 3. Izvietošanas instrukcija  
 ### 3.1 Docker konfigurācija  
-Izveidojiet docker-compose.yml failu:  
-
+Izveidojiet docker-compose.yml datni:  
+```
 version: '3.8'
-
 services:
   # Spark Master
   spark-master:
@@ -157,7 +156,7 @@ services:
     networks:
       - spark-network
 
-  # Jupyter Lab (PySpark)
+  # JupyterLab (PySpark)
   jupyter:
     image: jupyter/pyspark-notebook:latest
     ports:
@@ -187,18 +186,20 @@ networks:
 	
 ### 3.2 Klastera palaišana  
 ```docker-compose up -d  
-docker-compose ps```
+docker-compose ps
+```
 
 ***Pārbauda, vai viss darbojas:***
-Spark UI: http://localhost:8080  
+```Spark UI: http://localhost:8080  
 HDFS UI: http://localhost:9870  
 Jupyter Lab: http://localhost:8888 (ar token parole123)  
-
+```
 
 ### 3.3 Datu ievietošana HDFS 
 ```docker exec -it namenode bash  
 hdfs dfs -mkdir /data  
-hdfs dfs -put /local/data /data/```
+hdfs dfs -put /local/data /data/
+```
 
 Pārbauda HDFS:
 ```hdfs dfs -ls /data  
@@ -216,7 +217,6 @@ spark = SparkSession.builder \
     .getOrCreate()
 df = spark.read.parquet("hdfs://namenode:9000/data/datne.parquet")
 df.show()
-
 ```
 
 ## 4. Tehnoloģiju komplekts 
