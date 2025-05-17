@@ -302,3 +302,36 @@ for file in os.listdir(local_dir):
         hdfs_file = f"{hdfs_dir}/{file}"
         !hdfs dfs -put -f {local_file} {hdfs_file}
 ```
+
+## 13. Datu sgatavošanas secība, lai varētu pielietot Holistisko datu attīrīšanas un integrācijas paradigmu
+**13.1. Datu pārsūtīšana:**
+No lokālā jupyterlab konteinera mapes "synthea_izejas_dati" pārsūta datus uz HDFS (http://localhost:9870/) mapi "/dati/synthea_csv" ar komandām:
+
+```import os
+
+local_dir = "/opt/workspace/synthea_izejas_dati/CSV"
+hdfs_dir = "/dati/synthea_csv"
+
+# Izveido HDFS mapi
+!hdfs dfs -mkdir -p {hdfs_dir}
+
+# Pārsūta visus CSV failus uz HDFS
+for file in os.listdir(local_dir):
+    if file.endswith(".csv"):
+        local_file = os.path.join(local_dir, file)
+        hdfs_file = f"{hdfs_dir}/{file}"
+        !hdfs dfs -put -f {local_file} {hdfs_file}
+```  
+
+**13.2. Sākotnēji nosaka esošo datu kvalitāti:**  
+*13.2.1* Pielieto datu kvalitātes nolasīšanas skriptu, kas ir python valodā un var palaist caur Jupyterlab interaktīvo izstrādes vidi **orginalo_datu_nolasisana**, skripts nolasīs datnes visus failus un ierakstīs rezultātu PostgreSQL datubāzes tabulā - `"synthea_data_quality_2025"`  
+*13.2.2* Lai reddzētu vizuālo skatu par punktā  *13.2.1* izrunāto, tad var palaist caur Jupyterlab interaktīvo izstrādes vidi **orginalo_datu_grafiks**  
+
+**13.3. Veselo datu forsētā kļūdošanas procedūra**  
+*13.3.1* Pielieto skriptu, kas ir python valodā un var palaist caur Jupyterlab interaktīvo izstrādes vidi **synthea_inject**, skripts injicēs kļūdas 5 tabulās, kuras ir iekš HDFS (http://localhost:9870/) mapi "/dati/synthea_csv", neaiztiekot veselos datus, bet veidojot kopiju no orģināliem datiem un pārkopēs uz jaunu mapi `HDFS (http://localhost:9870/)` mapi `"/dati/synthea_kludainie_dati1"` un saglabās CSV datus HDFS loģikas veidā bet ar nejauši izvēlētiem 4 formātiem *('avro','json','csv','parquet')*  
+
+**13.4. Nosaka forsēto datņu datu kvalitāti**  
+*13.4.1* Pielieto datu kvalitātes nolasīšanas skriptu, kas ir python valodā un var palaist caur Jupyterlab interaktīvo izstrādes vidi **kludaino_datu_nolasisana**, skripts nolasīs datnes visus failus un ierakstīs rezultātu PostgreSQL datubāzes tabulā - `"error_synthea_data_quality_2025"`  
+*13.4.2* Lai reddzētu vizuālo skatu par punktā  *13.4.1* izrunāto, tad var palaist caur Jupyterlab interaktīvo izstrādes vidi **kludaino_datu_grafiks**  
+
+**13.5. Holistisko datu attīrīšanas un integrācijas paradigmas izsaukšana:**  
