@@ -4,6 +4,15 @@ Datu integrācijas un attīrīšanas metodes strukturētiem lielapjoma datiem, R
 
 Šis projekts nodrošina Docker Compose konfigurāciju, lai izveidotu lokālu Hadoop (HDFS) un Spark klasteri, kā arī JupyterLab vidi datu analīzei un apstrādei. Papildus tam, šīs instrukcijas parāda, kā no JupyterLab pieslēgties ārējai PostgreSQL datubāzei, lai izveidotu specifisku tabulu datu kvalitātes vēstures glabāšanai. Tas ir paredzēts, lai nodrošinātu reproducējamu un viegli pārvaldāmu vidi datu zinātnes eksperimentiem.
 
+## Būvēts ar:
+
+- <img src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" width="20" height="20"> **Docker** - [https://www.docker.com/](https://www.docker.com/)  
+- <img src="https://hadoop.apache.org/images/hadoop-logo.jpg" width="20" height="20"> **Hadoop** - [https://hadoop.apache.org/](https://hadoop.apache.org/)  
+- <img src="https://spark.apache.org/images/spark-logo-trademark.png" width="20" height="20"> **PySpark** - [https://spark.apache.org/](https://spark.apache.org/)  
+- <img src="https://www.postgresql.org/media/img/about/press/elephant.png" width="20" height="20"> **PostgreSQL** - [https://www.postgresql.org/](https://www.postgresql.org/)  
+- <img src="https://www.python.org/static/community_logos/python-logo.png" width="20" height="20"> **Python** - [https://www.python.org/](https://www.python.org/)  
+- <img src="https://jupyter.org/assets/homepage/main-logo.svg" width="20" height="20"> **JupyterLab** - [https://jupyter.org/](https://jupyter.org/)  
+
 ## 1. Komponentes
 
 Projekts sastāv no šādiem Docker servisiem:
