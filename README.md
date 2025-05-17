@@ -3,7 +3,7 @@ Datu integrācijas un attīrīšanas metodes strukturētiem lielapjoma datiem, R
 # Hadoop & Spark Klasteris ar JupyterLab Datu Apstrādei
 
 Šis projekts nodrošina Docker Compose konfigurāciju, lai izveidotu lokālu Hadoop (HDFS) un Spark klasteri, kā arī JupyterLab vidi datu analīzei un apstrādei. Papildus tam, šī instrukcijas parāda, kā no JupyterLab pieslēgties ārējai PostgreSQL datubāzei, lai izveidotu specifisku tabulu datu kvalitātes vēstures glabāšanai. Tas ir paredzēts, lai nodrošinātu reproducējamu un viegli pārvaldāmu vidi datu zinātnes eksperimentiem.  
-Lai uzstādītu vienkāršotu Spark klastera risinājumu ar vairākiem serveriem, kas atrodas vienā tīklā, lūdzu izmantot šo vispārīgo risinājumu - [**Izkliedētas Spark klastera izveide ar HDFS un JupyterLab konteinerizēta vide.md**](/Izkliedetas%20Spark%20klastera%20izveide%20ar%20HDFS%20un%20JupyterLab%20konteinerizeta%20vide.md)
+Lai uzstādītu vienkāršotu Spark klastera risinājumu ar vairākiem serveriem, kas atrodas vienā tīklā, lūdzu izmantot šo vispārīgo risinājumu - [**Izkliedētas Spark klastera izveide ar HDFS un JupyterLab konteinerizēta vidē.md**](/Izkliedetas%20Spark%20klastera%20izveide%20ar%20HDFS%20un%20JupyterLab%20konteinerizeta%20vide.md)
 
 ## Būvēts ar:
 
