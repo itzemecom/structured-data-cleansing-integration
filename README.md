@@ -272,3 +272,33 @@ Ja šis projekts būs Jūsu Git repozitorijā, apsveriet iespēju pievienot .env
 `jupyterlab` konteinerī tiek izmantots `root` lietotājs. Tas vienkāršo failu tiesību jautājumus, bet ražošanas vidēs parasti tiek izmantots neprivileģēts lietotājs. Jūsu mācību/eksperimentu videi tas ir pieņemami.
 **Detalizētāka `.env` izmantošana:**
 Ja nākotnē radīsies vajadzība konfigurēt, piemēram, Spark workeru atmiņu vai kodolu (Core) skaitu caur .env, Jūs varētu `docker-compose.yml` failā nomainīt fiksētās vērtības (piem., `SPARK_WORKER_MEMORY=1G`) uz mainīgajiem (piem., `SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY_CONFIG:-1G}`) un definēt `SPARK_WORKER_MEMORY_CONFIG` `.env` failā.
+
+**HDFS pieslēgšanās tests:**
+
+```from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+    .appName("HDFS tests") \
+    .getOrCreate()
+
+df = spark.read.text("hdfs://namenode:9000/test/test.txt")
+df.show()
+```
+
+**Datu pārsūtīšana no jupyterlab konteinera uz HDFS:**
+
+```import os
+
+local_dir = "/opt/workspace/synthea_izejas_dati/CSV"
+hdfs_dir = "/dati/synthea_csv"
+
+# Izveido HDFS mapi
+!hdfs dfs -mkdir -p {hdfs_dir}
+
+# Pārsūta visus CSV failus uz HDFS
+for file in os.listdir(local_dir):
+    if file.endswith(".csv"):
+        local_file = os.path.join(local_dir, file)
+        hdfs_file = f"{hdfs_dir}/{file}"
+        !hdfs dfs -put -f {local_file} {hdfs_file}
+```
