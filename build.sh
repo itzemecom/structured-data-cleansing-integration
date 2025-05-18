@@ -1,37 +1,19 @@
 #!/bin/bash
 
-# Definē versijas (kā jau ir jūsu failā)
-SPARK_VERSION="3.4.2"
-HADOOP_VERSION="3.2"
-JUPYTERLAB_VERSION="3.1.0"
+# Iziet no skripta, ja kāda komanda neizdodas
+set -e
 
-# -- Izveido attēlus (esošās komandas)
-docker build \
--f cluster-base.Dockerfile \
--t cluster-base .
+echo "Uzbūvē Docker attēlus, izmantojot Docker Compose."
+# docker-compose build uzbūvē visus servisus, kam definēts 'build' lauks.
+# Ja vēlas būvēt tikai jupyterlab attēlu, var izmantot 'docker-compose build jupyterlab'
+docker-compose build
 
-docker build \
---build-arg spark_version="${SPARK_VERSION}" \
---build-arg hadoop_version="${HADOOP_VERSION}" \
--f spark-base.Dockerfile \
--t spark-base .
+echo "Palaiž Docker konteinerus, izmantojot Docker Compose."
+# docker-compose up -d palaidīs servisus fonā (detached mode)
+# Ja vēlas redzēt darbību žurnālus tieši terminālī, izmanto 'docker-compose up' bez '-d'
+docker-compose up -d
 
-docker build \
--f spark-master.Dockerfile \
--t spark-master .
-
-docker build \
--f spark-worker.Dockerfile \
--t spark-worker .
-
-docker build \
---build-arg spark_version="${SPARK_VERSION}" \
---build-arg jupyterlab_version="${JUPYTERLAB_VERSION}" \
--f jupyterlab.Dockerfile \
--t jupyterlab .
-
-# --- Pievienot: Palaist Docker Compose servisus ---
-echo "Docker attēlu veidošana pabeigta. Notiek Docker Composite pakalpojumu palaišana..."
-docker compose up -d
-echo "Docker Compose pakalpojumi tika palaisti atvienotā režīmā."
-# --- Pievienot beigas ---
+echo "Vide tiek startēta. Lūdzu, uzgaidiet, kamēr servisi ir gatavi."
+echo "Var pārbaudīt servisu statusu ar komandu: docker-compose ps"
+echo "Var apskatīt konteineru žurnalus ar komandu: docker-compose logs"
+echo "JupyterLab parasti pieejams: http://localhost:8888"
