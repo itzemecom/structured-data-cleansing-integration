@@ -46,7 +46,7 @@ ENV PYSPARK_PYTHON="${VIRTUAL_ENV}/bin/python"
 RUN ${VIRTUAL_ENV}/bin/pip install --no-cache-dir --upgrade pip && \
     ${VIRTUAL_ENV}/bin/pip install --no-cache-dir \
     pyspark==${SPARK_VERSION} \
-    delta-spark==2.4.0 \ 
+    delta-spark==2.4.0 \
     jupyterlab \
     numpy pandas scipy seaborn matplotlib scikit-learn \
     pyarrow fastparquet polars jsonlines \
