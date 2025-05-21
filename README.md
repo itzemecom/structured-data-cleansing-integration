@@ -35,7 +35,7 @@ UI pieejams: `http://localhost:8080`.
 RPC ports: `7077`.
 
 **Spark Worker (3 instances: `spark-worker-1`, `spark-worker-2`, `spark-worker-3`):**
-Attēls: `bitnami/spark:3.4.2`.
+Attēls: `spark-worker.Dockerfile`.
 Šie servisi izpilda Spark aplikāciju uzdevumus (tasks). Katram workerim ir savs UI:
 `spark-worker-1` UI: `http://localhost:8081`.
 `spark-worker-2` UI: `http://localhost:8082`.
@@ -47,7 +47,7 @@ Nodrošina interaktīvu Python vidi ar PySpark, Pandas, scikit-learn, `psycopg2-
 Pieslēdzas Spark Master un HDFS.
 UI pieejams: `http://localhost:8888` (bez paroles).
 
-**Piezīme par PostgreSQL:** PostgreSQL datubāze **netiek** pārvaldīta ar šo `docker-compose.yml` konfigurāciju. Tiek pieņemts, ka jums ir pieejama PostgreSQL instance (piemēram, lokāli instalēta uz jūsu hosta mašīnas vai citā serverī), kurai JupyterLab varēs pieslēgties.
+**Piezīme par PostgreSQL:** PostgreSQL datubāze **netiek** pārvaldīta ar šo `docker-compose.yml` konfigurāciju. Tiek pieņemts, ka Jums ir pieejama PostgreSQL instance (piemēram, lokāli instalēta uz jūsu hosta mašīnas vai citā serverī), kurai JupyterLab varēs pieslēgties.
 
 ## 2. Priekšnosacījumi
 
@@ -60,13 +60,14 @@ Instalēts Git (lai klonētu repozitoriju, ja tas ir nepieciešams).
 
 Pirms palaišanas, pārliecinieties, ka Jūsu projekta direktorijā ir šāda failu un mapju struktūra:
 
-├── docker-compose.yml          # Docker konfigurācija  
+├── docker-compose.yml               # Docker konfigurācija  
 ├── jupyter_magistrs2025.Dockerfile  # JupyterLab Dockerfile  
-├── core-site.xml              # Hadoop konfigurācija  
-├── .env                       # Vides mainīgie  
-├── synthea_izejas_dati/       # Izejas dati  
-├── synthea_kludainie_dati/    # Kļūdainie dati  
-└── izpildes_datnes/    # Izpildāmās datnes hetegorēnu datu attīrīšanā un integrācijā  
+├── core-site.xml                    # Hadoop konfigurācija  
+├── spark-worker.Dockerfile          # Hadoop konfigurācija  
+├── .env                             # Vides mainīgie  
+├── synthea_izejas_dati/             # Izejas dati  
+├── synthea_kludainie_dati/          # Kļūdainie dati  
+└── izpildes_datnes/                 # Izpildāmās datnes hetegorēnu datu attīrīšanā un integrācijā  
 
 ## 4. Konfigurācija
 
