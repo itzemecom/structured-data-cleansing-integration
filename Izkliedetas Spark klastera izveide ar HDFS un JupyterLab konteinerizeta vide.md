@@ -11,16 +11,16 @@
 ### Galvenie komponenti
 - **Master mezgls** (1 instances):
   - Spark Driver
-  - Resource Manager
+  - Resursu pārvaldītājs
   - Klastera vadība
 
 - **Darba mezgli** (3 instances):
-  - Spark Executors
+  - Spark Izpildītāji
   - Datu apstrāde
 
 ### HDFS konfigurācija
 - **NameNode** (1 instances):
-  - Failu sistēmas vadība
+  - Datņu sistēmas vadība
 - **DataNodes** (3 instances):
   - Datu glabāšana (katram 4+ TB)
 
@@ -32,7 +32,7 @@
 ## 2. Nepieciešamā infrastruktūra
 
 ### Serveru prasības
-| Komponents | Procesors | Atmiņa | Krātuve | OS |
+| Komponente | Procesors | Atmiņa | Krātuve | OS |
 |------------|-----------|--------|---------|----|
 | Master | 8+ kodoli | 16+ GB | 100+ GB | Ubuntu 22.04 |
 | Workers | 16+ kodoli | 32+ GB | 4+ TB | Ubuntu 22.04 |
