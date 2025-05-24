@@ -346,9 +346,20 @@ for file in os.listdir(local_dir):
 *13.4.2* Lai reddzētu vizuālo skatu par punktā  *13.4.1* izrunāto, tad var palaist caur Jupyterlab interaktīvo izstrādes vidi **kludaino_datu_grafiks**  
 
 **13.5. Holistisko datu attīrīšanas un integrācijas paradigmas lietošanas ceļvedis:**  
-*13.5.1* Izpildes faili, kuri ir atbildīgi par praktiskās daļas analīzi
-├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska labosana un ierakstisana bez starptabulu integritates.py  #   
-├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana.py  #   
-└── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana_viuzalais.py  #   
+*13.5.1* Izpildes faili, kuri ir atbildīgi par praktiskās daļas analīzi  
+├── izpildes_datnes/Holistiska paradigmas izpildes datnes/starptabulu integritates nodrosinasana.py   
+├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska labosana un ierakstisana bez starptabulu integritates.py   
+├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana.py   
+└── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana_viuzalais.py   
 
+****starptabulu integritates nodrosinasana.py**** - Šī datne nodrošina datu integritātes pārbaudi un labošanu, kā arī atskaites ģenerēšanu par datu kvalitāti, izmantojot Spark un HDFS, lai apstrādātu un uzlabotu Synthea datu kopas starptabulu integritāti.  
+****Holistiska labosana un ierakstisana bez starptabulu integritates.py**** - Šī datne nodrošina datu pārbaudi un labošanu, kā arī atskaites ģenerēšanu par datu kvalitāti, izmantojot Spark un HDFS, lai apstrādātu un uzlabotu Synthea datu kopas datu kvalitāti.
+****Holistiska datu nolasisana.py**** - Šī datne nodrošina, ka visi dati no HDFS datubāzes tiek nolasīti un apkopota to kvalitāte un ierakstīts summārais novērtējums PostgreSQL datubāzē.  
+****Holistiska datu nolasisana_viuzalais.py**** - Šī datne nodrošina, ka visi dati no PostgreSQL datubāzes tiek nolasīti un parādīts divos vizuālos skatījoms.  
 
+*13.5.2* HDFS datu tabulas http://localhost:9870/explorer.html#/:  
+Visa projekta dati atrodes virsmapē "**dait**", apakšmapes: **synthea_csv**, **synthea_kludainie_dati1**, **synthea_kludainie_dati1_laboti**.  
+
+*13.5.3* Izpildāmo datņu palaišanas secība:  
+
+**1.** starptabulu integritates nodrosinasana.py -> **2.** Holistiska labosana un ierakstisana bez starptabulu integritates.py -> **3.** Holistiska datu nolasisana.py -> **4.** Holistiska datu nolasisana_viuzalais.py  
