@@ -345,4 +345,9 @@ for file in os.listdir(local_dir):
 *13.4.1* Pielieto datu kvalitātes nolasīšanas skriptu, kas ir python valodā un var palaist caur Jupyterlab interaktīvo izstrādes vidi **kludaino_datu_nolasisana**, skripts nolasīs datnes visus failus un ierakstīs rezultātu PostgreSQL datubāzes tabulā - `"error_synthea_data_quality_2025"`  
 *13.4.2* Lai reddzētu vizuālo skatu par punktā  *13.4.1* izrunāto, tad var palaist caur Jupyterlab interaktīvo izstrādes vidi **kludaino_datu_grafiks**  
 
-**13.5. Holistisko datu attīrīšanas un integrācijas paradigmas izsaukšana:**  
+**13.5. Holistisko datu attīrīšanas un integrācijas paradigmas lietošanas ceļvedis:**  
+*13.5.1* 
+├──                              # Vides mainīgie  
+├── synthea_izejas_dati/             # Izejas dati  
+├── synthea_kludainie_dati/          # Kļūdainie dati  
+└── izpildes_datnes/                 # Izpildāmās datnes hetegorēnu datu attīrīšanā un integrācijā  
