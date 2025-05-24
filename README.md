@@ -346,8 +346,9 @@ for file in os.listdir(local_dir):
 *13.4.2* Lai reddzētu vizuālo skatu par punktā  *13.4.1* izrunāto, tad var palaist caur Jupyterlab interaktīvo izstrādes vidi **kludaino_datu_grafiks**  
 
 **13.5. Holistisko datu attīrīšanas un integrācijas paradigmas lietošanas ceļvedis:**  
-*13.5.1* 
-├──                              # Vides mainīgie  
-├── synthea_izejas_dati/             # Izejas dati  
-├── synthea_kludainie_dati/          # Kļūdainie dati  
-└── izpildes_datnes/                 # Izpildāmās datnes hetegorēnu datu attīrīšanā un integrācijā  
+*13.5.1* Izpildes faili, kuri ir atbildīgi par praktiskās daļas analīzi
+├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska labosana un ierakstisana bez starptabulu integritates.py  #   
+├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana.py  #   
+└── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana_viuzalais.py  #   
+
+
