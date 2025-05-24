@@ -317,7 +317,7 @@ try:
             corrected_df_map[name] = corrected_df
 
     # 5. Laboto datu saglabāšana HDFS
-    output_base_path = "/dati/synthea_kludainie_dati_integritate"
+    output_base_path = "/dati/synthea_kludainie_dati1_laboti"
     print(f"\n--- Laboto datu saglabāšana HDFS ceļā: {output_base_path} ---")
 
     for name, df in corrected_df_map.items():
@@ -483,6 +483,6 @@ try:
 
 finally:
     if spark:
-        print("\nIzslēdzu Spark sesiju")
+        print("\nIzslēdzu Spark sesiju...")
         spark.stop()
         print("Spark sesija izslēgta.")
