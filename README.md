@@ -350,7 +350,7 @@ for file in os.listdir(local_dir):
 ├── izpildes_datnes/Holistiska paradigmas izpildes datnes/starptabulu integritates nodrosinasana.py   
 ├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska labosana un ierakstisana bez starptabulu integritates.py   
 ├── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana.py   
-└── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana_viuzalais.py   
+└── izpildes_datnes/Holistiska paradigmas izpildes datnes/Holistiska datu nolasisana_vizualais.py   
 
 ****starptabulu integritates nodrosinasana.py**** - Šī datne nodrošina datu integritātes pārbaudi un labošanu, kā arī atskaites ģenerēšanu par datu kvalitāti, izmantojot Spark un HDFS, lai apstrādātu un uzlabotu Synthea datu kopas starptabulu integritāti.  
 ****Holistiska labosana un ierakstisana bez starptabulu integritates.py**** - Šī datne nodrošina datu pārbaudi un labošanu, kā arī atskaites ģenerēšanu par datu kvalitāti, izmantojot Spark un HDFS, lai apstrādātu un uzlabotu Synthea datu kopas datu kvalitāti.
