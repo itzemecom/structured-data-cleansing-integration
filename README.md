@@ -16,6 +16,8 @@ Lai uzstādītu vienkāršotu Spark klastera risinājumu ar vairākiem serveriem
 
 ## 1. Komponentes
 
+<img src="https://github.com/user-attachments/assets/e08e4be0-ec96-48da-9ff9-e36a334973ab" alt="Datu plūsmas shēma" width="600">
+
 Projekts sastāv no šādiem Docker servisiem:
 
 **Hadoop NameNode (`namenode`):**
